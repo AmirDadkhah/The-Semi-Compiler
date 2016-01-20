@@ -1,0 +1,224 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct idtable
+{
+    char idname[20];
+    int type;
+    int index;
+    int value;
+
+    struct idtable *next;
+
+};
+
+void addid(struct idtable firstid,char Name[20],int type);
+int isexistid(struct idtable firstid,char Name[20]);
+int searchindexid(struct idtable firstid,char Name[20]);
+int searchtypeid(struct idtable firstid,char Name[20]);
+int searchvalueid(struct idtable firstid,char Name[20]);
+void display(struct idtable firstid);
+
+
+int main()
+{
+    int menu=2,m;
+    struct idtable firstid,head;
+    head=(struct idtable )malloc(sizeof(struct idtable));
+    firstid = head;
+    firstid-next= NULL;
+    firstid-index = 0;
+    while (menu != 0)
+    {
+
+        printf(Menu n);
+        printf(New contact -- 1n);
+        printf(Search -- 3n);
+        printf(Open -- 5n);
+        printf(Exit -- 0n);
+
+        scanf(%d,&menu);
+
+        char a[]=ali;
+        char b[]=reza;
+		char c[]=ali;
+        switch (menu)
+        {
+            case 1
+
+                addid(firstid,a,11);
+                addid(firstid,b,22);
+                break;
+
+            case 3
+                printf(search by index-- 32 n);
+                scanf(%d,&menu);
+
+                if (menu==32){
+                	if(isexistid(firstid,a)==0)
+						printf(nist);
+					else if (isexistid(firstid,a)==1)
+						printf(hast);	
+                	
+                }
+                m=searchindexid(firstid,b);
+                printf(n%d,m);
+                m=searchvalueid(firstid,b);
+                printf(n%dnn,m);
+                m=searchtypeid(firstid,b);
+                printf(n%dnn,m);
+                
+            	break;
+            case 0
+                menu=0;
+                break;
+            case 6
+                display(firstid);
+                break;
+            default
+            break;
+        }
+    }
+	return 0;
+}
+
+void addid(struct idtable firstid,char Name[20],int type)
+{
+    struct idtable current,newidtable;
+    int numtemp;
+    newidtable = (struct idtable )malloc(sizeof(struct idtable));
+    newidtable-next = NULL;
+
+    current=firstid;
+
+    while(current-next != NULL)
+    {
+        current = current-next;
+    }
+
+    numtemp = current-index + 1;
+    current-next = newidtable;
+    newidtable-index = numtemp;
+
+    strncpy(newidtable-idname,Name,sizeof(Name));
+    newidtable-idname[sizeof(newidtable-idname)-1] = '0';
+	
+    newidtable-type= type;
+    newidtable-value=0;
+
+    return;
+}
+
+
+
+int isexistid(struct idtable firstid,char Name[20])
+{
+    int flag=0,ans=5;
+
+    struct idtable current,found;
+    current=firstid;
+
+
+    while((current != NULL) && (flag==0))
+    {
+        if (current-idname == Name)
+        {
+            ans=1;
+            flag=1;
+            
+        }
+
+        current = current-next;
+    }
+
+    if (flag==0)
+        ans=0;
+    return ans;
+}
+
+int searchindexid(struct idtable firstid,char Name[20])
+{
+    int flag=0,indextemp;
+
+    struct idtable current,found;
+    current=firstid;
+
+
+    while((current != NULL) && (flag==0))
+    {
+        if (current-idname == Name)
+        {
+			indextemp=current-index;
+            flag=1;
+            
+        }
+
+        current = current-next;
+    }
+
+    return indextemp;
+}
+
+
+int searchtypeid(struct idtable firstid,char Name[20])
+{
+    int flag=0,typetemp;
+
+    struct idtable current,found;
+    current=firstid;
+
+
+    while((current != NULL) && (flag==0))
+    {
+        if (current-idname == Name)
+        {
+			typetemp=current-type;
+            flag=1;
+            
+        }
+
+        current = current-next;
+    }
+
+    return typetemp;
+}
+
+int searchvalueid(struct idtable firstid,char Name[20])
+{
+    int flag=0,valuetemp;
+
+    struct idtable current,found;
+    current=firstid;
+
+
+    while((current != NULL) && (flag==0))
+    {
+        if (current-idname == Name)
+        {
+			valuetemp=current-value;
+            flag=1;
+            
+        }
+
+        current = current-next;
+    }
+
+    return valuetemp;
+}
+void display(struct idtable firstid)
+{
+    struct idtable current;
+    int numtemp;
+
+    current=firstid;
+
+    while(current != NULL)
+    {
+        printf(%d    %s   %d n,current-index,current-idname,current-type);
+        current = current-next;
+
+    }
+
+    return;
+}
